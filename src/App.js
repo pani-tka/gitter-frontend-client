@@ -25,27 +25,28 @@ class App extends React.Component {
     
     const { token } = this.state;
     
-    fetch(API_ROOMS_ENDPOINT, { 
-      headers: {               
+    fetch(API_ROOMS_ENDPOINT, { //URL, на который нужно сделать запрос
+      headers: {                //заголовки запроса (объект)
         Accept: 'application/json',
         Authorization: `Bearer ${token}`,
       },
     })
-      .then(response => {  
+      .then(response => {  //Этот then позволяет проанализировать ответ и, если он нас устроит – вернуть промис с нужным форматом (return response.json();). 
         if (!response.ok) {
-          throw Error(response.statusText); 
+          throw Error(response.statusText); // Свойство statusText только для чтения Response  содержит сообщение о состоянии, соответствующее коду состояния (например, OKдля 200).Значение ответа в консоли
         } 
 
-        return response.json(); 
+        return response.json(); //Здесь мы используем метод .json, чтобы парсить ответ как json.
       })
-      .then(this.fetchRoomsSuccess) 
-      .catch(this.fetchRoomsFailure); 
+      .then(this.fetchRoomsSuccess) //Результат вызова .json тоже является промисом, поэтому мы должны писать then, в котором мы получим результат,но он не выполнится при ошибке, будет переброс сразу в catch
+      .catch(this.fetchRoomsFailure); //Вспецификации fetch сказано, что сюда попадают только network ошибки,потому если нужно отловить обычные ошибки,то нужно сделать это в первом блоке then (throw Error(response.statusText);
   }
   
-  fetchRoomsSuccess = roomList => this.setState({  
+  fetchRoomsSuccess = roomList => this.setState({  //Когда данные будут извлечены успешно, они будут сохранены в локальном состоянии с помощью метода this.setState, затем render снова запустится и можно будет отобразить извлеченные данные.
     roomList,
     roomListFetching: false,
   });
+//Если же промис был выполнен успешно (fulfilled), то вызывается fetchRoomsSuccess, а если во время выполнения такого промиса произошла ошибка – вызывается fetchRoomsFailure.
 
   fetchRoomsFailure = error => this.setState({
     roomListFetching: false,
@@ -81,4 +82,4 @@ class App extends React.Component {
   }
 };
 
-export default Application;
+ReactDOM.render(<App />, document.getElementById('app'));
