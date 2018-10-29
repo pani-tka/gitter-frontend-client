@@ -1,3 +1,4 @@
+import React from 'react';
 import RoomItem from './room-item';
 
 const RoomList = ({ list }) => (

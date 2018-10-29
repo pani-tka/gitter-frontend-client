@@ -1,3 +1,5 @@
+import React from 'react';
+
 const RoomFetchButton = ({ fetching, error, action }) => (
   <button
     className="room-fetch-button"
