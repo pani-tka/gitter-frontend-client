@@ -1,3 +1,5 @@
+import React from 'react';
+
 class TokenEditor extends React.Component {
   state = {
     error: null,

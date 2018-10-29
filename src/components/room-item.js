@@ -1,3 +1,5 @@
+import React from 'react';
+
 class RoomItem extends React.Component {
   handleClick = e => e.preventDefault();
   
