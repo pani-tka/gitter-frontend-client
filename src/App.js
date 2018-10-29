@@ -1,61 +1,84 @@
 import React, { Component } from 'react';
 import logo from './logo.svg';
 import './App.css';
+import TokenEditor from './components/token-editor';
+import RoomList, { EmptyRoomList } from './components/room-list';
+import RoomFetchButton from './components/room-fetch-button';
 
-class Application extends React.Component {
+const API_ROOMS_ENDPOINT = 'https://api.gitter.im/v1/rooms';
+
+class App extends React.Component {
   state = {
-    counter: 1,
+    token: '',
+    roomList: null,
+    roomListFetching: false,
+    roomListFetchingError: null,
   }
 
-  increaseCounter = () => this.setState(({ counter }) => ({ counter: counter + 1 }));
-  decreaseCounter = () => this.setState(({ counter }) => ({ counter: counter - 1 }));
+  changeToken = token => this.setState({ token });
 
-   NewIncreaseCounter = () => this.setState(({ counter }) => ({ counter: counter + 5 }));
-   NewDecreaseCounter = () => this.setState(({ counter }) => ({ counter: counter -5 }));
+  fetchRooms = () => {
+    this.setState({
+      roomListFetching: true,
+      roomListFetchingError: null,
+    });
+    
+    const { token } = this.state;
+    
+    fetch(API_ROOMS_ENDPOINT, { 
+      headers: {               
+        Accept: 'application/json',
+        Authorization: `Bearer ${token}`,
+      },
+    })
+      .then(response => {  
+        if (!response.ok) {
+          throw Error(response.statusText); 
+        } 
 
-handleIncreaseClick = e => {
-    e.preventDefault();
-    e.stopPropagation();
-    
-   this.increaseCounter();
-  }
-handleNewIncreaseClick = e => {
-    e.preventDefault();
-    e.stopPropagation();
-    
-   this.NewIncreaseCounter();
+        return response.json(); 
+      })
+      .then(this.fetchRoomsSuccess) 
+      .catch(this.fetchRoomsFailure); 
   }
   
-  handleDecreaseClick = e => {
-    e.preventDefault();
-    e.stopPropagation();
-    
-    this.decreaseCounter();
-    
-  }
-  handleNewDecreaseClick = e => {
-    e.preventDefault();
-    e.stopPropagation();
-    
-    this.NewDecreaseCounter();
-    
-  }
+  fetchRoomsSuccess = roomList => this.setState({  
+    roomList,
+    roomListFetching: false,
+  });
+
+  fetchRoomsFailure = error => this.setState({
+    roomListFetching: false,
+    roomListFetchingError: error,
+  });
+
   render() {
-    const { counter } = this.state;
+    const { token, roomList, roomListFetching, roomListFetchingError } = this.state;
+    const hasRooms = !!roomList && roomList.length > 0;
 
     return (
-      <div>
-        <h1>{counter}</h1>
-        <p>Increase or decrease your counter</p>
-        <p>
-          <a href="#" onClick={this.handleIncreaseClick}>Increase counter</a>
-          <a href="#" onClick={this.handleDecreaseClick}>Decrease counter</a>
-          <a href="#" onClick={this.handleNewIncreaseClick}>+5</a>
-          <a href="#" onClick={this.handleNewDecreaseClick}>-5</a>
-        </p>
-      </div>
+      <div className="center">
+        <TokenEditor
+          token={token}
+          handleChange={this.changeToken}
+        />
+        {hasRooms
+          ? <RoomList list={roomList} />
+          : <EmptyRoomList />
+        }
+        <RoomFetchButton
+          fetching={roomListFetching}
+          error={roomListFetchingError}
+          action={this.fetchRooms}
+        />
+        {roomListFetchingError && (
+          <div className="error">
+            Fetch rooms failure
+          </div>
+        )}
+    	</div>
     );
   }
-}
+};
 
 export default Application;
