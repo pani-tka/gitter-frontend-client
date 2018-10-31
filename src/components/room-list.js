@@ -2,10 +2,10 @@ import React from 'react';
 import RoomItem from './room-item';
 import styles from './room-list.module.scss';
 
-const RoomList = ({ list }) => (
+const RoomList = ({ rooms }) => (
   <div className={styles.container}>
-    <h2> You have visited {list.length} rooms</h2>
-    {list.map(item => (
+    <h2> You have visited {rooms.length} rooms</h2>
+    {rooms.map(item => (
       <RoomItem
         key={item.id}
         {...item}

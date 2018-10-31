@@ -1,17 +1,19 @@
 import React from 'react';
+import UserCard from './user-card';
+import RoomList from './room-list';
 import styles from './main-layout.module.scss';
 
-const MainLayout = () => (
+const MainLayout = ({ user, rooms }) => (
   <div className={styles.container}>
     <header className={styles.header}>
-      Header
+      <UserCard user={user} />
     </header>
     <div className={styles.mainContent}>
       <div className={styles.roomList}>
-        Room List
+        <RoomList rooms={rooms} />
       </div>
       <div className={styles.roomView}>
-        Room View
+        RoomView
       </div>
     </div>
   </div>

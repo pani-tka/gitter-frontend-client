@@ -9,7 +9,7 @@ export const EmptyUserCard = () => (
 
 const UserCard = ({ user }) => (
   <div className={styles.container}>
-    {user[0].displayName}
+    {user.displayName}
   </div>
 );
 

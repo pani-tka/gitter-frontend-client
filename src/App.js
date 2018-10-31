@@ -103,9 +103,17 @@ class App extends Component {
       );
     }
 
+    const {
+      user,
+      rooms,
+    } = this.state;
+
     return (
       <Wrapper>
-        <MainLayout />
+        <MainLayout
+          user={user}
+          rooms={rooms}
+        />
       </Wrapper>
     );
   }
