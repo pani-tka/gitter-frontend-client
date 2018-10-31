@@ -1,8 +1,9 @@
 import React from 'react';
+import styles from './room-fetch-button.module.scss';
 
 const RoomFetchButton = ({ fetching, error, action }) => (
   <button
-    className="room-fetch-button"
+    className={styles.container}
     disabled={fetching} 
     onClick={action}
   >
