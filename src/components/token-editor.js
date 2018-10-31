@@ -1,4 +1,5 @@
 import React from 'react';
+import styles from './token-editor.module.scss';
 
 class TokenEditor extends React.Component {
   state = {
@@ -23,7 +24,7 @@ class TokenEditor extends React.Component {
     const { token } = this.props;
 
     return (
-      <div className="token-editor-container">
+      <div className={styles.container}>
         <label>
           Token:
         </label>

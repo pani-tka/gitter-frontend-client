@@ -1,8 +1,9 @@
 import React from 'react';
+import styles from './user-fetch-button.module.scss';
 
 const UserFetchButton = ({ fetching, error, action }) => (
   <button
-    className="user-fetch-button"
+    className={styles.container}
     disabled={fetching} 
     onClick={action}
   >

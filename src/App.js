@@ -1,6 +1,5 @@
 import React, { Component } from 'react';
-import logo from './logo.svg';
-import './App.css';
+import styles from './App.module.scss';
 import TokenEditor from './components/token-editor';
 import RoomList, { EmptyRoomList } from './components/room-list';
 import RoomFetchButton from './components/room-fetch-button';
@@ -10,7 +9,9 @@ import UserCard, { EmptyUserCard } from './components/user-card';
 const API_ROOMS_ENDPOINT = 'https://api.gitter.im/v1/rooms';
 const API_USER_ENDPOINT = 'https://api.gitter.im/v1/user';
 
-class App extends React.Component {
+console.log('styles', styles);
+
+class App extends Component {
   state = {
     token: '',
     roomList: null,
@@ -52,7 +53,7 @@ class App extends React.Component {
     roomList,
     roomListFetching: false,
   });
-//Если же промис был выполнен успешно (fulfilled), то вызывается fetchRoomsSuccess, а если во время выполнения такого промиса произошла ошибка – вызывается fetchRoomsFailure.
+  //Если же промис был выполнен успешно (fulfilled), то вызывается fetchRoomsSuccess, а если во время выполнения такого промиса произошла ошибка – вызывается fetchRoomsFailure.
 
   fetchRoomsFailure = error => this.setState({
     roomListFetching: false,
@@ -99,12 +100,12 @@ class App extends React.Component {
     const hasUser = !!userCard && userCard.length > 0;
 
     return (
-      <div className="center">
+      <div className={styles.container}>
         <TokenEditor
           token={token}
           handleChange={this.changeToken}
         />
-        <div className="room">
+        <div className={styles.room}>
         {hasRooms
           ? <RoomList list={roomList} />
           : <EmptyRoomList />
@@ -120,7 +121,7 @@ class App extends React.Component {
           </div>
         )}
         </div>
-        <div className="user">
+        <div className={styles.user}>
         {hasUser
           ? <UserCard user={userCard} />
           : <EmptyUserCard />
