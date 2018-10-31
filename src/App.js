@@ -122,7 +122,7 @@ class App extends React.Component {
         </div>
         <div className="user">
         {hasUser
-          ? <UserCard list={userCard} />
+          ? <UserCard user={userCard} />
           : <EmptyUserCard />
         }
         <UserFetchButton
