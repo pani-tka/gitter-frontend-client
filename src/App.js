@@ -4,8 +4,11 @@ import './App.css';
 import TokenEditor from './components/token-editor';
 import RoomList, { EmptyRoomList } from './components/room-list';
 import RoomFetchButton from './components/room-fetch-button';
+import UserFetchButton from './components/user-fetch-button';
+import UserCard, { EmptyUserCard } from './components/user-card';
 
 const API_ROOMS_ENDPOINT = 'https://api.gitter.im/v1/rooms';
+const API_USER_ENDPOINT = 'https://api.gitter.im/v1/user';
 
 class App extends React.Component {
   state = {
@@ -13,6 +16,9 @@ class App extends React.Component {
     roomList: null,
     roomListFetching: false,
     roomListFetchingError: null,
+    userCard: null,
+    userCardFetching: false,
+    userCardFetchingError: null,
   }
 
   changeToken = token => this.setState({ token });
@@ -52,10 +58,45 @@ class App extends React.Component {
     roomListFetching: false,
     roomListFetchingError: error,
   });
+  
+  fetchUser = () => {
+    this.setState({
+      userCardFetching: true,
+      userCardFetchingError: null,
+    });
+
+    const { token } = this.state;
+    
+    fetch(API_USER_ENDPOINT, { 
+      headers: {                
+        Accept: 'application/json',
+        Authorization: `Bearer ${token}`,
+      },
+    })
+      .then(response => {  
+        if (!response.ok) {
+          throw Error(response.statusText); 
+        } 
+
+        return response.json(); 
+      })
+      .then(this.fetchUserSuccess) 
+      .catch(this.fetchUserFailure);
+  }
+  fetchUserSuccess = userCard => this.setState({  
+    userCard,
+    userCardFetching: false,
+  });
+
+  fetchUserFailure = error => this.setState({
+    userCardFetching: false,
+    userCardFetchingError: error,
+  });
 
   render() {
-    const { token, roomList, roomListFetching, roomListFetchingError } = this.state;
+    const { token, roomList, roomListFetching, roomListFetchingError, userCard, userCardFetching, userCardFetchingError} = this.state;
     const hasRooms = !!roomList && roomList.length > 0;
+    const hasUser = !!userCard && userCard.length > 0;
 
     return (
       <div className="center">
@@ -63,6 +104,7 @@ class App extends React.Component {
           token={token}
           handleChange={this.changeToken}
         />
+        <div className="room">
         {hasRooms
           ? <RoomList list={roomList} />
           : <EmptyRoomList />
@@ -77,6 +119,23 @@ class App extends React.Component {
             Fetch rooms failure
           </div>
         )}
+        </div>
+        <div className="user">
+        {hasUser
+          ? <UserCard list={userCard} />
+          : <EmptyUserCard />
+        }
+        <UserFetchButton
+          fetching={userCardFetching}
+          error={userCardFetchingError}
+          action={this.fetchUser}
+        />
+        {userCardFetchingError && (
+          <div className="error">
+            Fetch user failure
+          </div>
+        )}
+          </div>
     	</div>
     );
   }
