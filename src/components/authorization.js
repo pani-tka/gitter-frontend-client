@@ -1,7 +1,7 @@
 import React from 'react';
 import styles from './authorization.module.scss';
 
-const Authorization = ({ token, tokenVerificationError, changeToken, applyToken }) => (
+const Authorization = ({ token, tokenVerificationError, loading, changeToken, applyToken }) => (
   <div className={styles.container}>
     <header className={styles.header}>
       <h1>
@@ -24,10 +24,11 @@ const Authorization = ({ token, tokenVerificationError, changeToken, applyToken 
     </div>
     <div className={styles.controls}>
       <button
+        disabled={loading}
         className={styles.applyTokenButton}
         onClick={applyToken}
       >
-        Continue
+        {loading ? 'Loading...' : 'Continue'}
       </button>
     </div>
   </div>
