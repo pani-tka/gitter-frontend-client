@@ -1,19 +1,23 @@
 import React, { Component } from 'react';
 import styles from './App.module.scss';
-import TokenEditor from './components/token-editor';
 import RoomList, { EmptyRoomList } from './components/room-list';
 import RoomFetchButton from './components/room-fetch-button';
 import UserFetchButton from './components/user-fetch-button';
 import UserCard, { EmptyUserCard } from './components/user-card';
 
+import Wrapper from './components/wrapper';
+import Authorization from './components/authorization';
+import MainLayout from './components/main-layout';
+
 const API_ROOMS_ENDPOINT = 'https://api.gitter.im/v1/rooms';
 const API_USER_ENDPOINT = 'https://api.gitter.im/v1/user';
 
-console.log('styles', styles);
-
 class App extends Component {
   state = {
-    token: '',
+    tokenField: '', // value for authorization component
+    tokenVerificationError: null,
+    verifiedToken: '',
+
     roomList: null,
     roomListFetching: false,
     roomListFetchingError: null,
@@ -22,7 +26,30 @@ class App extends Component {
     userCardFetchingError: null,
   }
 
-  changeToken = token => this.setState({ token });
+  changeToken = (event) => {
+    event.preventDefault();
+
+    const tokenField = event.target.value;
+
+    this.setState({ tokenField });
+  }
+
+  applyToken = () => {
+    const { tokenField } = this.state;
+
+    const regexp = /(([0-9])|([a-f])){40}/;
+
+    if (regexp.test(tokenField)) {
+      this.setState({
+        tokenVerificationError: null,
+        verifiedToken: tokenField,
+      });
+    } else {
+      this.setState({
+        tokenVerificationError: 'Your token invalid',
+      });
+    }
+  }
 
   fetchRooms = () => {
     this.setState({
@@ -95,13 +122,34 @@ class App extends Component {
   });
 
   render() {
-    const { token, roomList, roomListFetching, roomListFetchingError, userCard, userCardFetching, userCardFetchingError} = this.state;
-    const hasRooms = !!roomList && roomList.length > 0;
-    const hasUser = !!userCard && userCard.length > 0;
+    // const { token, roomList, roomListFetching, roomListFetchingError, userCard, userCardFetching, userCardFetchingError} = this.state;
+    // const hasRooms = !!roomList && roomList.length > 0;
+    // const hasUser = !!userCard && userCard.length > 0;
+
+    const { tokenField, tokenVerificationError, verifiedToken } = this.state;
+
+    if (!verifiedToken) {
+      return (
+        <Wrapper>
+          <Authorization
+            token={tokenField}
+            tokenVerificationError={tokenVerificationError}
+            changeToken={this.changeToken}
+            applyToken={this.applyToken}
+          />
+        </Wrapper>
+      );
+    }
+
+    return (
+      <Wrapper>
+        <MainLayout />
+      </Wrapper>
+    );
 
     return (
       <div className={styles.container}>
-        <TokenEditor
+        {/* <TokenEditor
           token={token}
           handleChange={this.changeToken}
         />
@@ -136,7 +184,7 @@ class App extends Component {
             Fetch user failure
           </div>
         )}
-          </div>
+        </div> */}
     	</div>
     );
   }
