@@ -16,7 +16,7 @@ class App extends Component {
   state = {
     tokenField: '', // value for authorization component
     tokenVerificationError: null,
-    verifiedToken: '',
+    verifiedToken: 'fds',
 
     roomList: null,
     roomListFetching: false,
