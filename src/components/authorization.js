@@ -5,7 +5,7 @@ const Authorization = ({ token, tokenVerificationError, loading, changeToken, ap
   <div className={styles.container}>
     <header className={styles.header}>
       <h1>
-        Welcome
+        Welcome to Gitter Frontend Client
       </h1>
     </header>
     <div className={styles.tokenEditor}>

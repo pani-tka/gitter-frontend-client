@@ -1,8 +1,10 @@
 .container {
   display: flex;
+  color: #f6f4f5;
+  font-size: 18px;
+  padding: 14px;
 }
-
 .emptyContainer {
   display: flex;
-  background-color: pink;
+  background-color: #f6f4f5;
 }

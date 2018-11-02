@@ -5,15 +5,17 @@ import styles from './room-list.module.scss';
 const RoomList = ({ rooms }) => (
   <div className={styles.container}>
     <h2> You have visited {rooms.length} rooms</h2>
+    <input className={styles.searchInput} type="text" placeholder="Search"/>
+    <div className={styles.list}>
     {rooms.map(item => (
       <RoomItem
         key={item.id}
         {...item}
       />
     ))}
+    </div>
   </div>
 );
-
 
 export const EmptyRoomList = () => (
   <div className="empty-room-list">
