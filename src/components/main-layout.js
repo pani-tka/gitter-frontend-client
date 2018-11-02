@@ -13,7 +13,7 @@ const MainLayout = ({ user, rooms }) => (
         <RoomList rooms={rooms} />
       </div>
       <div className={styles.roomView}>
-        RoomView
+        <p>Please select a room to start messaging</p>
       </div>
     </div>
   </div>

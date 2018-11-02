@@ -1,5 +1,43 @@
 .container {
   display: flex;
   flex-direction: column;
-  align-items: center;
+  width: 500px;
+  height: 300px;
+  display: flex;
+  flex-direction: column;
+  margin: 0 auto;
+  background-color: white;
+  margin-top: 20%; 
 }
+  .header h1{
+    font-size: 26px;
+    font-weight: normal;
+    text-align: center;
+    margin-top: 10%;
+  }
+  .tokenInput{
+    width: 50%;
+    height: 40px;
+    text-align: center;
+    display: block;
+    margin: 5% auto;
+    border-top: none;
+    border-right: none;
+    border-left: none;
+    border-bottom: 1px solid #213451;
+  }
+  .controls button{
+    width: 135px;
+    height: 50px;
+    display: block;
+    border: none;
+    color: white;
+    font-size: 14px;
+    letter-spacing: 0.7px;
+    background-color: #213451;
+    margin: 5% auto;
+    
+  }
+  button:active body{
+    background-color: white;
+  }

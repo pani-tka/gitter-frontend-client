@@ -5,7 +5,7 @@
 
   .header {
     height: 50px;
-    background-color: orange;
+    background-color: #6e819e;
   }
 
   .mainContent {
@@ -13,7 +13,20 @@
     flex-direction: row;
 
     .roomList {
-      width: 400px;
+      width: 300px;
+    }
+    .roomView{
+      width: 700px;
+      background-color: white;
+
+      p{
+        font-size: 20px;
+        text-align: center;
+        color: #999;
+        margin: 0;
+        padding-top: 240px;
+        padding-bottom: 240px;
+      }
     }
   }
 }

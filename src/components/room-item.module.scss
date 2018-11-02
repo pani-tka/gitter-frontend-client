@@ -1,4 +1,38 @@
 .container {
+  width: 100%;
+  height: 70px;
+  box-sizing: border-box;
   display: flex;
+  padding: 5px 5px 5px 15px;
 }
-
+.container:hover{
+  background-color: #f6f4f5;
+}
+.name{
+  display: block;
+  width: 170px;
+  color: black;
+  font-size: 17px;
+  padding: 10px 0 0 15px;
+  text-decoration: none;
+}
+.unreadItem{
+  display: block;
+  width: 25px;
+  height: 25px;
+  box-sizing: border-box;
+  border-radius: 50%;
+  font-size: 11px;
+  color: white;
+  text-align: center;
+  padding-top: 6px;
+  margin-top: 30px;
+  background-color: #d0aebc;
+}
+.image{
+  display: block;
+  max-width: 50px;
+  height: 50px;
+  border-radius: 50%;
+  padding: 5px;
+}
