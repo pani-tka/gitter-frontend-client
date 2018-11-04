@@ -16,6 +16,8 @@ class App extends Component {
   
     user: null,
     rooms: null,
+
+    selectedRoomId: null,
   }
 
   constructor(...args) {
@@ -80,6 +82,20 @@ class App extends Component {
     });
   }
 
+  selectRoom = (roomId) => {
+    this.setState({ selectedRoomId: roomId });
+  }
+
+  getSelectedRoom = () => {
+    const { rooms, selectedRoomId } = this.state;
+
+    if (selectedRoomId) {
+      return rooms.find(item => item.id === selectedRoomId);
+    }
+
+    return null;
+  }
+
   render() {
     const {
       tokenField,
@@ -113,6 +129,8 @@ class App extends Component {
         <MainLayout
           user={user}
           rooms={rooms}
+          selectedRoom={this.getSelectedRoom()}
+          selectRoom={this.selectRoom}
         />
       </Wrapper>
     );

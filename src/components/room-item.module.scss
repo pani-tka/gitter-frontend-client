@@ -4,6 +4,10 @@
   box-sizing: border-box;
   display: flex;
   padding: 5px 5px 5px 15px;
+
+  &.selected {
+    background-color: #33f;
+  }
 }
 .container:hover{
   background-color: #f6f4f5;
