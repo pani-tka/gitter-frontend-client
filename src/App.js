@@ -14,12 +14,16 @@ class App extends Component {
     dataLoaded: false,
     dataLoading: false,
     dataLoadingError: null,
-  
+
     user: null,
     rooms: null,
 
+    messages: null,
+    messagesLoading: false,
+    messagesLoadingError: null,
+
     selectedRoomID: null,
-    
+
   }
 
   constructor(...args) {
@@ -83,20 +87,46 @@ class App extends Component {
       dataLoadingError: error.message,
     });
   }
+
+  loadMessages = (roomId) => {
+    this.setState({
+      messagesLoading: true,
+      messagesLoadingError: null,
+    });
+
+    this.api.fetchMessages(roomId)
+      .then(this.fetchMessagesSuccess)
+      .catch(this.fetchMessagesFailure);
+  }
+
+  fetchMessagesSuccess = (messages) => {
+    this.setState({
+      messagesLoading: false,
+      messages,
+    });
+  }
+
+  fetchMessagesFailure = (error) => {
+    this.setState({
+      messagesLoading: false,
+      messagesLoadingError: error.message,
+    });
+  }
+
   selectRoom = (roomID) => {
     this.setState({
       selectedRoomID: roomID,
     });
   }
+
   getSelectedRoom = () => {
     const {rooms, selectedRoomID} = this.state;
 
     if (selectedRoomID) {
       return rooms.find(item => item.id === selectedRoomID);
-    } 
+    }
 
     return null;
-
   }
 
   render() {
@@ -134,6 +164,7 @@ class App extends Component {
           rooms={rooms}
           selectedRoom={this.getSelectedRoom()}
           selectRoom={this.selectRoom}
+          loadMessages={this.loadMessages}
         />
       </Wrapper>
     );

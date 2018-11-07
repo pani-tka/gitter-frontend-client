@@ -5,15 +5,16 @@ class RoomItem extends Component {
 
   handleClick = event => {
     event.preventDefault();
-    const {id, isSelected, selectRoom} = this.props;
+    const { id, isSelected, selectRoom, loadMessages } = this.props;
 
     if(!isSelected){
       selectRoom(id);
+      loadMessages(id);
     }
   }
 
   render() {
-    const { 
+    const {
       name,
       unreadItems,
       avatarUrl,
@@ -23,7 +24,7 @@ class RoomItem extends Component {
     const containerClassName = isSelected
     ? `${styles.container} ${styles.selected}`
     : styles.container;
-    
+
     return (
       <div className={containerClassName}>
         <img className={styles.image} src={avatarUrl} alt=""/>
