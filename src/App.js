@@ -3,6 +3,7 @@ import Wrapper from './components/wrapper';
 import Authorization from './components/authorization';
 import MainLayout from './components/main-layout';
 import Api from './api';
+import './App.scss';
 
 class App extends Component {
   state = {
@@ -16,6 +17,9 @@ class App extends Component {
   
     user: null,
     rooms: null,
+
+    selectedRoomID: null,
+    
   }
 
   constructor(...args) {
@@ -79,6 +83,21 @@ class App extends Component {
       dataLoadingError: error.message,
     });
   }
+  selectRoom = (roomID) => {
+    this.setState({
+      selectedRoomID: roomID,
+    });
+  }
+  getSelectedRoom = () => {
+    const {rooms, selectedRoomID} = this.state;
+
+    if (selectedRoomID) {
+      return rooms.find(item => item.id === selectedRoomID);
+    } 
+
+    return null;
+
+  }
 
   render() {
     const {
@@ -113,6 +132,8 @@ class App extends Component {
         <MainLayout
           user={user}
           rooms={rooms}
+          selectedRoom={this.getSelectedRoom()}
+          selectRoom={this.selectRoom}
         />
       </Wrapper>
     );
