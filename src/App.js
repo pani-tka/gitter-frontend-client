@@ -155,6 +155,8 @@ class App extends Component {
     const {
       user,
       rooms,
+      messages,
+      messagesLoading,
     } = this.state;
 
     return (
@@ -162,6 +164,9 @@ class App extends Component {
         <MainLayout
           user={user}
           rooms={rooms}
+          // if you want to have messages in MainLayout you should pass the props with messages
+          messages={messages}
+          messagesLoading={messagesLoading}
           selectedRoom={this.getSelectedRoom()}
           selectRoom={this.selectRoom}
           loadMessages={this.loadMessages}
