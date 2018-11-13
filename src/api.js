@@ -42,6 +42,8 @@ class Api {
       this.fetchRooms(),
     ]);
   }
+
+  fetchMessages = (roomId) => this.fetchResource(`rooms/${roomId}/chatMessages`);
 }
 
 export default Api;

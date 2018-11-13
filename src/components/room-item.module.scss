@@ -5,7 +5,7 @@
   display: flex;
   padding: 5px 5px 5px 15px;
   &.selected {
-    background-color: #33f;
+    background-color: #7a839e;
   }
 }
 .container:hover{
@@ -30,7 +30,8 @@
   text-align: center;
   padding-top: 6px;
   margin-top: 30px;
-  background-color: #d0aebc;
+  background-color: #94b5c2;
+  overflow: hidden;
 }
 .image{
   display: block;

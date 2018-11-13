@@ -4,6 +4,7 @@
   display: flex;
   flex-direction: column;
   background-color: white;
+  border-right: 0.5px solid #cfd0d2;
 }
   h2{
     font-size: 17px;
@@ -18,41 +19,43 @@
   .searchInput{
     width: 60%;
     height: 20px;
-    padding: 5px; 
+    padding: 5px;
     display: block;
     margin: 15px auto;
     text-align: center;
-    color: #999;
+    color: #cfd0d2;
     font-size: 14px;
     border-top: none;
     border-left: none;
     border-right: none;
-    border-bottom: 1px solid #213451;
+    border-bottom: 0.5px solid #cfd0d2;
   }
   .list{
     width: 100%;
     overflow: hidden;
+  }
+  .list:hover{
     overflow-y: scroll;
     overflow-x: hidden;
   }
   .list::-webkit-scrollbar {
     display: block;
-    width: 2px;
+    width: 1px;
     padding: 0 5px;
   }
   .list::-webkit-scrollbar-track {
-    box-shadow: inset 0 0 6px rgba(0,0,0,0.3); 
+    box-shadow: inset 0 0 6px rgba(0,0,0,0.3);
     -webkit-border-radius: 10px;
     border-radius: 10px;
   }
   .list::-webkit-scrollbar-thumb {
     -webkit-border-radius: 10px;
     border-radius: 10px;
-    background: #d0aebc; 
-    box-shadow: inset 0 0 6px rgba(0,0,0,0.5); 
+    background: #cfd0d2;
+    box-shadow: inset 0 0 6px rgba(0,0,0,0.5);
   }
   .list::-webkit-scrollbar-thumb:window-inactive {
-    background: #d0aebc; 
+    background: #cfd0d2;
   }
 
 
