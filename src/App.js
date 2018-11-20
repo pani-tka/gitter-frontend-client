@@ -29,14 +29,24 @@ class App extends Component {
   }
 
   loadData = () => {
-    this.setState({
-      dataLoading: true,
-      dataLoadingError: null,
-    });
+    // this.setState({
+    //   dataLoading: true,
+    //   dataLoadingError: null,
+    // });
 
-    this.api.fetchData()
-      .then(this.fetchDataSuccess)
-      .catch(this.fetchDataFailure);
+    // dispatch({
+    //   type: LOAD_DATA_STARTED,
+    // });
+
+    // this.api.fetchData()
+    //   .then(() => {
+    //     dispatch({
+    //       type: LOAD_DATA_SUCCESS,
+    //       sdfdsfas,
+    //     })
+    //   })
+    //   .then(this.fetchDataSuccess)
+    //   .catch(this.fetchDataFailure);
   }
 
   fetchDataSuccess = ([userResponse, roomsResponse]) => {
