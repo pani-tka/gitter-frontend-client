@@ -7,10 +7,6 @@ import './App.scss';
 
 class App extends Component {
   state = {
-    tokenField: '011c376dcb352c7a30ae8ec3b9a212f58339c013', // value for authorization component
-    tokenVerificationError: null,
-    verifiedToken: '',
-
     dataLoaded: false,
     dataLoading: false,
     dataLoadingError: null,
@@ -30,35 +26,6 @@ class App extends Component {
     super(...args);
 
     this.api = new Api();
-  }
-
-  changeToken = (event) => {
-    event.preventDefault();
-
-    const tokenField = event.target.value;
-
-    this.setState({ tokenField });
-  }
-
-  applyToken = () => {
-    const { tokenField } = this.state;
-
-    const regexp = /(([0-9])|([a-f])){40}/;
-
-    if (regexp.test(tokenField)) {
-      this.setState({
-        tokenVerificationError: null,
-        verifiedToken: tokenField,
-      });
-
-      this.api.setToken(tokenField);
-
-      this.loadData();
-    } else {
-      this.setState({
-        tokenVerificationError: 'Your token invalid',
-      });
-    }
   }
 
   loadData = () => {
@@ -131,7 +98,6 @@ class App extends Component {
 
   render() {
     const {
-      tokenField,
       tokenVerificationError,
       dataLoaded,
       dataLoading,
@@ -141,13 +107,7 @@ class App extends Component {
     if (!dataLoaded) {
       return (
         <Wrapper>
-          <Authorization
-            loading={dataLoading}
-            token={tokenField}
-            tokenVerificationError={tokenVerificationError || dataLoadingError}
-            changeToken={this.changeToken}
-            applyToken={this.applyToken}
-          />
+          <Authorization loading={dataLoading} />
         </Wrapper>
       );
     }
