@@ -1,4 +1,5 @@
 import React, { Component } from 'react';
+import { connect } from 'react-redux';
 import Wrapper from './components/wrapper';
 import Authorization from './components/authorization';
 import MainLayout from './components/main-layout';
@@ -11,7 +12,6 @@ class App extends Component {
     dataLoading: false,
     dataLoadingError: null,
 
-    user: null,
     rooms: null,
 
     messages: null,
@@ -47,22 +47,6 @@ class App extends Component {
     //   })
     //   .then(this.fetchDataSuccess)
     //   .catch(this.fetchDataFailure);
-  }
-
-  fetchDataSuccess = ([userResponse, roomsResponse]) => {
-    this.setState({
-      dataLoaded: true,
-      dataLoading: false,
-      user: userResponse[0],
-      rooms: roomsResponse,
-    });
-  }
-
-  fetchDataFailure = (error) => {
-    this.setState({
-      dataLoading: false,
-      dataLoadingError: error.message,
-    });
   }
 
   loadMessages = (roomId) => {
@@ -107,6 +91,8 @@ class App extends Component {
   }
 
   render() {
+    const { authSuccess } = this.props;
+
     const {
       tokenVerificationError,
       dataLoaded,
@@ -114,7 +100,7 @@ class App extends Component {
       dataLoadingError,
     } = this.state;
 
-    if (!dataLoaded) {
+    if (!authSuccess) {
       return (
         <Wrapper>
           <Authorization loading={dataLoading} />
@@ -123,7 +109,6 @@ class App extends Component {
     }
 
     const {
-      user,
       rooms,
       messages,
       messagesLoading,
@@ -132,7 +117,6 @@ class App extends Component {
     return (
       <Wrapper>
         <MainLayout
-          user={user}
           rooms={rooms}
           // if you want to have messages in MainLayout you should pass the props with messages
           messages={messages}
@@ -146,4 +130,10 @@ class App extends Component {
   }
 };
 
-export default App;
+const mapStateToProps = (state) => {
+  return {
+    authSuccess: !!state.verifiedToken && !!state.user,
+  };
+}
+
+export default connect(mapStateToProps)(App);

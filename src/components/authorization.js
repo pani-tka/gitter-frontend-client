@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
-import { changeToken, verifyTokenSuccess, verifyTokenFailure } from '../actions';
+import { changeToken, verifyTokenSuccess, verifyTokenFailure, fetchUser } from '../actions';
 import styles from './authorization.module.scss';
 
 class Authorization extends Component {
@@ -17,6 +17,8 @@ class Authorization extends Component {
 
     if (regexp.test(token)) {
       this.props.verifyTokenSuccess();
+      // request data
+      this.props.fetchUser();
     } else {
       this.props.verifyTokenFailure();
     }
@@ -76,6 +78,7 @@ const mapDispatchToProps = {
   changeToken,
   verifyTokenSuccess,
   verifyTokenFailure,
+  fetchUser,
 };
 
 export default connect(mapStateToProps, mapDispatchToProps)(Authorization);

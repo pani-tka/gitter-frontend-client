@@ -11,12 +11,12 @@ const MainLayout = ({ user, rooms, messages, messagesLoading, selectedRoom, sele
     </header>
     <div className={styles.mainContent}>
       <div className={styles.roomList}>
-        <RoomList
+        {/* <RoomList
           rooms={rooms}
           selectedRoom={selectedRoom}
           selectRoom={selectRoom}
           loadMessages={loadMessages}
-        />
+        /> */}
       </div>
       <div className={styles.roomView}>
         <RoomView

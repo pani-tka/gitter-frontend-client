@@ -1,4 +1,5 @@
 import React from 'react';
+import { connect } from 'react-redux';
 import styles from './user-card.module.scss';
 
 export const EmptyUserCard = () => (
@@ -13,4 +14,10 @@ const UserCard = ({ user }) => (
   </div>
 );
 
-export default UserCard;
+const mapStateToProps = (state) => {
+  return {
+    user: state.user,
+  };
+}
+
+export default connect(mapStateToProps)(UserCard);
