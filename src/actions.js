@@ -7,7 +7,7 @@ export const changeToken = (token) => ({
      token,
 });
 
-// @question: shy we not pass token as parameter?
+// @question: why we not pass token as parameter?
 export const verifyTokenSuccess = () => ({
      type: VERIFY_TOKEN_SUCCESS,
 });
