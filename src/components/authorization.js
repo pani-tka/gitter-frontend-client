@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
-import { changeToken, verifyTokenSuccess, verifyTokenFailure, fetchUser } from '../actions';
+import { changeToken, verifyTokenSuccess, verifyTokenFailure, fetchUser, fetchRooms } from '../actions';
 import styles from './authorization.module.scss';
 
 class Authorization extends Component {
@@ -19,6 +19,7 @@ class Authorization extends Component {
       this.props.verifyTokenSuccess();
       // request data
       this.props.fetchUser();
+      this.props.fetchRooms();
     } else {
       this.props.verifyTokenFailure();
     }
@@ -79,6 +80,7 @@ const mapDispatchToProps = {
   verifyTokenSuccess,
   verifyTokenFailure,
   fetchUser,
+  fetchRooms,
 };
 
 export default connect(mapStateToProps, mapDispatchToProps)(Authorization);

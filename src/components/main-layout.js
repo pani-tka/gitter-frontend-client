@@ -4,19 +4,18 @@ import RoomList from './room-list';
 import styles from './main-layout.module.scss';
 import RoomView from './room-view';
 
-const MainLayout = ({ user, rooms, messages, messagesLoading, selectedRoom, selectRoom, loadMessages }) => (
+const MainLayout = ({ user, messages, messagesLoading, selectedRoom, selectRoom, loadMessages }) => (
   <div className={styles.container}>
     <header className={styles.header}>
-      <UserCard user={user} />
+     <UserCard user={user} />
     </header>
     <div className={styles.mainContent}>
       <div className={styles.roomList}>
-        {/* <RoomList
-          rooms={rooms}
+        <RoomList
           selectedRoom={selectedRoom}
           selectRoom={selectRoom}
           loadMessages={loadMessages}
-        /> */}
+        /> 
       </div>
       <div className={styles.roomView}>
         <RoomView

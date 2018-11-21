@@ -7,6 +7,9 @@ export const VERIFY_TOKEN_FAILURE = 'VERIFY_TOKEN_FAILURE';
 export const REQUEST_USER = 'REQUEST_USER';
 export const REQUEST_USER_SUCCESS = 'REQUEST_USER_SUCCESS';
 
+export const REQUEST_ROOM_LIST = 'REQUEST_ROOM_LIST';
+export const REQUEST_ROOM_LIST_SUCCESS = 'REQUEST_ROOM_LIST_SUCCESS';
+
 const api = new Api();
 
 export const changeToken = (token) => ({
@@ -46,4 +49,29 @@ export const fetchUser = () => {
                     dispatch(requestUserSuccess(response));
                });
      }
-}
+};
+
+const requestRoomList = () => ({
+     type: REQUEST_ROOM_LIST,
+});
+
+const requestRoomListSuccess = (data) => ({
+     type: REQUEST_ROOM_LIST_SUCCESS,
+     rooms: data,
+});
+
+export const fetchRooms = () => {
+     return (dispatch, getState) => {
+          const { verifiedToken } = getState();
+          
+          dispatch(requestRoomList());
+
+          api.setToken(verifiedToken);
+
+          api.fetchRooms()
+               .then(response => {
+                    dispatch(requestRoomListSuccess(response));
+               });
+     }
+
+};

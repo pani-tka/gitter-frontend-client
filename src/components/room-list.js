@@ -1,13 +1,22 @@
 import React from 'react';
 import RoomItem from './room-item';
+import { connect } from 'react-redux';
 import styles from './room-list.module.scss';
 
-const RoomList = ({ rooms, selectRoom, selectedRoom, loadMessages }) => (
+export const EmptyRoomList = () => (
+  <div className="empty-room-list">
+    No Rooms, no blooms
+  </div>
+);
+
+const RoomList = ({ rooms, roomsLoading, selectRoom, selectedRoom, loadMessages }) => (
   <div className={styles.container}>
-    <h2> You have visited {rooms.length} rooms</h2>
+    {!!rooms && (
+      <h2> You have visited {rooms.length} rooms</h2>
+    )}
     <input className={styles.searchInput} type="text" placeholder="Search"/>
     <div className={styles.list}>
-    {rooms.map(item => (
+    {!!rooms && rooms.map(item => (
       <RoomItem
         key={item.id}
         isSelected={selectedRoom && item.id === selectedRoom.id}
@@ -20,10 +29,12 @@ const RoomList = ({ rooms, selectRoom, selectedRoom, loadMessages }) => (
   </div>
 );
 
-export const EmptyRoomList = () => (
-  <div className="empty-room-list">
-    No Rooms, no blooms
-  </div>
-);
 
-export default RoomList;
+const mapStateToProps = (state) => {
+  return {
+    rooms: state.rooms,
+    roomsLoading: state.roomsLoading,
+  };
+}
+
+export default connect(mapStateToProps)(RoomList);
