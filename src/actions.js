@@ -10,6 +10,12 @@ export const REQUEST_USER_SUCCESS = 'REQUEST_USER_SUCCESS';
 export const REQUEST_ROOM_LIST = 'REQUEST_ROOM_LIST';
 export const REQUEST_ROOM_LIST_SUCCESS = 'REQUEST_ROOM_LIST_SUCCESS';
 
+export const SELECT_ROOM = 'SELECT_ROOM';
+export const SELECTED_ROOM = 'SELECTED_ROOM';
+
+export const REQUEST_MESSAGES = 'REQUEST_MESSAGES';
+export const REQUEST_MESSAGES_SUCCESS = 'REQUEST_MESSAGES_SUCCESS';
+
 const api = new Api();
 
 export const changeToken = (token) => ({
@@ -73,5 +79,34 @@ export const fetchRooms = () => {
                     dispatch(requestRoomListSuccess(response));
                });
      }
+};
 
+export const selectRoom = (roomId)=> ({
+     type: SELECT_ROOM,
+     roomId,
+})
+
+const requestMessages = (roomId) => ({
+     type: REQUEST_MESSAGES,
+     roomId,
+});
+
+const requestMessagesSuccess = (messages) => ({
+     type: REQUEST_MESSAGES_SUCCESS,
+     messages,
+});
+
+export const fetchMessages = (roomId) => {
+     return (dispatch, getState) => {
+          const { verifiedToken} = getState();
+          
+          dispatch(requestMessages(roomId));
+
+          api.setToken(verifiedToken);
+
+          api.fetchMessages(roomId)
+               .then(response => {
+                    dispatch(requestMessagesSuccess(response));
+               });
+     }
 };

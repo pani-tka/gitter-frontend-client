@@ -28,76 +28,11 @@ class App extends Component {
     this.api = new Api();
   }
 
-  loadData = () => {
-    // this.setState({
-    //   dataLoading: true,
-    //   dataLoadingError: null,
-    // });
-
-    // dispatch({
-    //   type: LOAD_DATA_STARTED,
-    // });
-
-    // this.api.fetchData()
-    //   .then(() => {
-    //     dispatch({
-    //       type: LOAD_DATA_SUCCESS,
-    //       sdfdsfas,
-    //     })
-    //   })
-    //   .then(this.fetchDataSuccess)
-    //   .catch(this.fetchDataFailure);
-  }
-
-  loadMessages = (roomId) => {
-    this.setState({
-      messagesLoading: true,
-      messagesLoadingError: null,
-    });
-
-    this.api.fetchMessages(roomId)
-      .then(this.fetchMessagesSuccess)
-      .catch(this.fetchMessagesFailure);
-  }
-
-  fetchMessagesSuccess = (messages) => {
-    this.setState({
-      messagesLoading: false,
-      messages,
-    });
-  }
-
-  fetchMessagesFailure = (error) => {
-    this.setState({
-      messagesLoading: false,
-      messagesLoadingError: error.message,
-    });
-  }
-
-  selectRoom = (roomID) => {
-    this.setState({
-      selectedRoomID: roomID,
-    });
-  }
-
-  getSelectedRoom = () => {
-    const {rooms, selectedRoomID} = this.state;
-
-    if (selectedRoomID) {
-      return rooms.find(item => item.id === selectedRoomID);
-    }
-
-    return null;
-  }
-
   render() {
     const { authSuccess } = this.props;
 
     const {
-      tokenVerificationError,
-      dataLoaded,
       dataLoading,
-      dataLoadingError,
     } = this.state;
 
     if (!authSuccess) {
@@ -118,10 +53,9 @@ class App extends Component {
       <Wrapper>
         <MainLayout
           rooms={rooms}
-          // if you want to have messages in MainLayout you should pass the props with messages
           messages={messages}
           messagesLoading={messagesLoading}
-          selectedRoom={this.getSelectedRoom()}
+          selectedRoom={this.selectedRoom}
           selectRoom={this.selectRoom}
           loadMessages={this.loadMessages}
         />

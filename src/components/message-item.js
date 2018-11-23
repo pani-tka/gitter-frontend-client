@@ -6,6 +6,7 @@ class MessageItem extends Component {
 
   handleClick = event => {
     event.preventDefault();
+    
   }
 
   render() {

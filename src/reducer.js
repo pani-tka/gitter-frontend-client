@@ -1,4 +1,5 @@
-import { CHANGE_TOKEN, VERIFY_TOKEN_SUCCESS, VERIFY_TOKEN_FAILURE, REQUEST_USER, REQUEST_USER_SUCCESS, REQUEST_ROOM_LIST, REQUEST_ROOM_LIST_SUCCESS } from "./actions";
+import { CHANGE_TOKEN, VERIFY_TOKEN_SUCCESS, VERIFY_TOKEN_FAILURE, REQUEST_USER, REQUEST_USER_SUCCESS, 
+    REQUEST_ROOM_LIST, REQUEST_ROOM_LIST_SUCCESS, SELECT_ROOM, REQUEST_MESSAGES, REQUEST_MESSAGES_SUCCESS} from "./actions";
 
 const INITIAL_STATE = {
     tokenField: '011c376dcb352c7a30ae8ec3b9a212f58339c013', // value for authorization component
@@ -75,6 +76,31 @@ export const reducer = (state = INITIAL_STATE, action) => {
                 ...state,
                 roomsLoading: false,
                 rooms: action.rooms,
+            }
+
+            return nextState;
+        }
+        case SELECT_ROOM: {
+            const nextState = {
+                ...state,
+                selectedRoomID: action.roomId,
+            }  
+
+            return nextState;
+        }
+        case REQUEST_MESSAGES: {
+            const nextState = {
+                ...state,
+                messagesLoading: true,
+            }
+
+            return nextState;
+        }
+        case REQUEST_MESSAGES_SUCCESS: {
+            const nextState = {
+                ...state,
+                messagesLoading: false,
+                messages: action.messages,
             }
 
             return nextState;

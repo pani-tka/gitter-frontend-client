@@ -1,16 +1,14 @@
 import React, {Component} from 'react';
 import styles from './room-item.module.scss';
+import { connect } from 'react-redux';
+import {selectRoom,fetchMessages} from '../actions.js';
 
 class RoomItem extends Component {
 
   handleClick = event => {
     event.preventDefault();
-    const { id, isSelected, selectRoom, loadMessages } = this.props;
-
-    if(!isSelected){
-      selectRoom(id);
-      loadMessages(id);
-    }
+      this.props.selectRoom(this.props.id);
+      this.props.fetchMessages(this.props.id);
   }
 
   render() {
@@ -35,5 +33,13 @@ class RoomItem extends Component {
   }
 }
 
+const mapStateToProps = null;
+const mapDispatchToProps = {
+  selectRoom,
+  fetchMessages,
+};
 
-export default RoomItem;
+export default connect(
+  mapStateToProps,
+  mapDispatchToProps
+)(RoomItem);

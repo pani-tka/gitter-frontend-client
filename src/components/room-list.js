@@ -1,6 +1,7 @@
 import React from 'react';
 import RoomItem from './room-item';
 import { connect } from 'react-redux';
+import {selectRoom} from '../actions.js';
 import styles from './room-list.module.scss';
 
 export const EmptyRoomList = () => (
@@ -9,7 +10,7 @@ export const EmptyRoomList = () => (
   </div>
 );
 
-const RoomList = ({ rooms, roomsLoading, selectRoom, selectedRoom, loadMessages }) => (
+const RoomList = ({ rooms, roomsLoading, selectedRoomID ,  messagesLoading }) => (
   <div className={styles.container}>
     {!!rooms && (
       <h2> You have visited {rooms.length} rooms</h2>
@@ -19,9 +20,10 @@ const RoomList = ({ rooms, roomsLoading, selectRoom, selectedRoom, loadMessages 
     {!!rooms && rooms.map(item => (
       <RoomItem
         key={item.id}
-        isSelected={selectedRoom && item.id === selectedRoom.id}
+        selectedRoom={!!rooms &&rooms.find(item => item.id === selectedRoomID)}
+        isSelected={selectedRoomID && item.id === selectedRoomID}
         selectRoom={selectRoom}
-        loadMessages={loadMessages}
+        messagesLoading={messagesLoading}
         {...item}
       />
     ))}
@@ -29,11 +31,11 @@ const RoomList = ({ rooms, roomsLoading, selectRoom, selectedRoom, loadMessages 
   </div>
 );
 
-
 const mapStateToProps = (state) => {
   return {
     rooms: state.rooms,
     roomsLoading: state.roomsLoading,
+    selectRoom: state.selectRoom,
   };
 }
 
