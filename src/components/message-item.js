@@ -5,8 +5,7 @@ import styles from './message-item.module.scss';
 class MessageItem extends Component {
 
   handleClick = event => {
-    event.preventDefault();
-    
+    event.preventDefault(); 
   }
 
   render() {

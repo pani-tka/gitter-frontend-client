@@ -10,7 +10,7 @@ export const EmptyRoomList = () => (
   </div>
 );
 
-const RoomList = ({ rooms, roomsLoading, selectedRoomID ,  messagesLoading }) => (
+const RoomList = ({ rooms,  selectedRoomID ,  messagesLoading }) => (
   <div className={styles.container}>
     {!!rooms && (
       <h2> You have visited {rooms.length} rooms</h2>

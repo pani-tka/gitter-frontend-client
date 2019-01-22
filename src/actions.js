@@ -23,6 +23,18 @@ export const changeToken = (token) => ({
      token,
 });
 
+/**
+ * messages = []
+ * ]
+ * 
+ * messages = {
+ * fdsfdse34dsf2: [
+ * ],
+ * fdsfdsae4098: [
+ * 
+ * ]
+ * }
+ */
 // @question: why we not pass token as parameter?
 export const verifyTokenSuccess = () => ({
      type: VERIFY_TOKEN_SUCCESS,
@@ -98,6 +110,7 @@ const requestMessagesSuccess = (messages) => ({
 
 export const fetchMessages = (roomId) => {
      return (dispatch, getState) => {
+          
           const { verifiedToken} = getState();
           
           dispatch(requestMessages(roomId));
