@@ -23,19 +23,6 @@ export const changeToken = (token) => ({
      token,
 });
 
-/**
- * messages = []
- * ]
- * 
- * messages = {
- * fdsfdse34dsf2: [
- * ],
- * fdsfdsae4098: [
- * 
- * ]
- * }
- */
-// @question: why we not pass token as parameter?
 export const verifyTokenSuccess = () => ({
      type: VERIFY_TOKEN_SUCCESS,
 });
@@ -53,7 +40,6 @@ const requestUserSuccess = (data) => ({
      user: data[0],
 });
 
-// thunk action (magic)
 export const fetchUser = () => {
      return (dispatch, getState) => {
           const { verifiedToken } = getState();
@@ -110,7 +96,6 @@ const requestMessagesSuccess = (messages) => ({
 
 export const fetchMessages = (roomId) => {
      return (dispatch, getState) => {
-          
           const { verifiedToken} = getState();
           
           dispatch(requestMessages(roomId));

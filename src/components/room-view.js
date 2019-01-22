@@ -9,10 +9,9 @@ class RoomView extends Component {
 
   scrollToBottom = () => {
     const messagesContainer = this.messageListRef.current;
-
       if (messagesContainer) {
         messagesContainer.scrollTop = messagesContainer.scrollHeight;
-    }
+      }
   }
 
   componentDidMount() {
@@ -41,24 +40,24 @@ class RoomView extends Component {
 
       return (
         <div className={styles.container}>
-        <div className={styles.roomTitle}>
-          <img className={styles.image} src={selectedRoom.avatarUrl} alt=""/>
-          <a className={styles.name}  href="#" >{selectedRoom.name} </a>
-        </div>
+          <div className={styles.roomTitle}>
+            <img className={styles.image} src={selectedRoom.avatarUrl} alt=""/>
+            <a className={styles.name}  href="#" >{selectedRoom.name} </a>
+          </div>
           <div ref={this.messageListRef} className={styles.messageList} >
             {!!messages && messages.map(item => (
-          <MessageItem
-            key={item.id}
-            {...item}
-          />
+              <MessageItem
+                key={item.id}
+                {...item}
+              />
             ))}
           </div>
           <div className={styles.sendForm}>
-          <img className={styles.image} src={user.avatarUrl} alt=""/>
-          <input className={styles.messageInput}
-            type="text"
-            placeholder="Click here to type a chat message."
-          />
+            <img className={styles.image} src={user.avatarUrl} alt=""/>
+            <input className={styles.messageInput}
+              type="text"
+              placeholder="Click here to type a chat message."
+            />
           </div>
         </div>
       );

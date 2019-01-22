@@ -28,7 +28,7 @@ class RoomItem extends Component {
         <img className={styles.image} src={avatarUrl} alt=""/>
         <a className={styles.name}  href="#" onClick={this.handleClick}> {name} </a>
         <span className={styles.unreadItem}>{unreadItems}</span>
-     </div>
+      </div>
     );
   }
 }

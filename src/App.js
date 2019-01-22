@@ -24,6 +24,7 @@ class App extends Component {
 
   constructor(...args) {
     super(...args);
+    
     this.api = new Api();
   }
 
