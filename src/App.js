@@ -8,32 +8,21 @@ import './App.scss';
 
 class App extends Component {
   state = {
-    dataLoaded: false,
-    dataLoading: false,
-    dataLoadingError: null,
-
     rooms: null,
 
     messages: null,
-    messagesLoading: false,
-    messagesLoadingError: null,
-
-    selectedRoomID: null,
-
-  }
+    messagesLoading: false
+  };
 
   constructor(...args) {
     super(...args);
-
     this.api = new Api();
   }
 
   render() {
     const { authSuccess } = this.props;
 
-    const {
-      dataLoading,
-    } = this.state;
+    const { dataLoading } = this.state;
 
     if (!authSuccess) {
       return (
@@ -43,11 +32,7 @@ class App extends Component {
       );
     }
 
-    const {
-      rooms,
-      messages,
-      messagesLoading,
-    } = this.state;
+    const { rooms, messages, messagesLoading } = this.state;
 
     return (
       <Wrapper>
@@ -62,12 +47,10 @@ class App extends Component {
       </Wrapper>
     );
   }
-};
-
-const mapStateToProps = (state) => {
-  return {
-    authSuccess: !!state.verifiedToken && !!state.user,
-  };
 }
+
+const mapStateToProps = state => ({
+  authSuccess: !!state.verifiedToken && !!state.user
+});
 
 export default connect(mapStateToProps)(App);

@@ -1,34 +1,33 @@
-import React, {Component} from 'react';
-import styles from './room-item.module.scss';
+import React, { Component } from 'react';
 import { connect } from 'react-redux';
-import {selectRoom,fetchMessages} from '../actions.js';
+import styles from './room-item.module.scss';
+import { selectRoom, fetchMessages } from '../actions';
 
 class RoomItem extends Component {
-
-  handleClick = event => {
-    event.preventDefault();
-      this.props.selectRoom(this.props.id);
-      this.props.fetchMessages(this.props.id);
-  }
+  handleClick = () => {
+    this.props.selectRoom(this.props.id);
+    this.props.fetchMessages(this.props.id);
+  };
 
   render() {
-    const {
-      name,
-      unreadItems,
-      avatarUrl,
-      isSelected,
-    } = this.props;
+    const { name, unreadItems, avatarUrl, isSelected } = this.props;
 
     const containerClassName = isSelected
-    ? `${styles.container} ${styles.selected}`
-    : styles.container;
+      ? `${styles.container} ${styles.selected}`
+      : styles.container;
 
     return (
       <div className={containerClassName}>
-        <img className={styles.image} src={avatarUrl} alt=""/>
-        <a className={styles.name}  href="#" onClick={this.handleClick}> {name} </a>
+        <img className={styles.image} src={avatarUrl} alt="" />
+        <button
+          type="button"
+          className={styles.name}
+          onClick={this.handleClick}
+        >
+          &nbsp;{name}&nbsp;
+        </button>
         <span className={styles.unreadItem}>{unreadItems}</span>
-     </div>
+      </div>
     );
   }
 }
@@ -36,7 +35,7 @@ class RoomItem extends Component {
 const mapStateToProps = null;
 const mapDispatchToProps = {
   selectRoom,
-  fetchMessages,
+  fetchMessages
 };
 
 export default connect(

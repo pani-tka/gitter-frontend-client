@@ -1,14 +1,19 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
-import { changeToken, verifyTokenSuccess, verifyTokenFailure, fetchUser, fetchRooms } from '../actions';
+import {
+  changeToken,
+  verifyTokenSuccess,
+  verifyTokenFailure,
+  fetchUser,
+  fetchRooms
+} from '../actions';
 import styles from './authorization.module.scss';
 
 class Authorization extends Component {
   onChange = event => {
     const token = event.target.value;
-
     this.props.changeToken(token);
-  }
+  };
 
   onClick = () => {
     const { token } = this.props;
@@ -17,13 +22,12 @@ class Authorization extends Component {
 
     if (regexp.test(token)) {
       this.props.verifyTokenSuccess();
-      // request data
       this.props.fetchUser();
       this.props.fetchRooms();
     } else {
       this.props.verifyTokenFailure();
     }
-  }
+  };
 
   render() {
     const { token, tokenVerificationError, loading } = this.props;
@@ -31,9 +35,7 @@ class Authorization extends Component {
     return (
       <div className={styles.container}>
         <header className={styles.header}>
-          <h1>
-            Welcome to Gitter Frontend Client
-          </h1>
+          <h1>Welcome to Gitter Frontend Client</h1>
         </header>
         <div className={styles.tokenEditor}>
           <input
@@ -43,14 +45,13 @@ class Authorization extends Component {
             value={token}
             onChange={this.onChange}
           />
-          {!!tokenVerificationError &&
-            <div className={styles.error}>
-              {tokenVerificationError}
-            </div>
-          }
+          {!!tokenVerificationError && (
+            <div className={styles.error}>{tokenVerificationError}</div>
+          )}
         </div>
         <div className={styles.controls}>
           <button
+            type="button"
             disabled={loading}
             className={styles.applyTokenButton}
             onClick={this.onClick}
@@ -63,24 +64,24 @@ class Authorization extends Component {
   }
 }
 
-// @question: what is mapStateToProps?
-const mapStateToProps = (state) => {
-  // @question: what is state here? what is props here?
+const mapStateToProps = state => {
   const props = {
     token: state.tokenField,
-    tokenVerificationError: state.tokenVerificationError,
-  }
+    tokenVerificationError: state.tokenVerificationError
+  };
 
   return props;
 };
 
-// @question: what is mapDispatchToProps?
 const mapDispatchToProps = {
   changeToken,
   verifyTokenSuccess,
   verifyTokenFailure,
   fetchUser,
-  fetchRooms,
+  fetchRooms
 };
 
-export default connect(mapStateToProps, mapDispatchToProps)(Authorization);
+export default connect(
+  mapStateToProps,
+  mapDispatchToProps
+)(Authorization);

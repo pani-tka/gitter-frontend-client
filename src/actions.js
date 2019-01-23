@@ -18,95 +18,84 @@ export const REQUEST_MESSAGES_SUCCESS = 'REQUEST_MESSAGES_SUCCESS';
 
 const api = new Api();
 
-export const changeToken = (token) => ({
-     type: CHANGE_TOKEN,
-     token,
+export const changeToken = token => ({
+  type: CHANGE_TOKEN,
+  token
 });
 
-// @question: why we not pass token as parameter?
 export const verifyTokenSuccess = () => ({
-     type: VERIFY_TOKEN_SUCCESS,
+  type: VERIFY_TOKEN_SUCCESS
 });
 
 export const verifyTokenFailure = () => ({
-     type: VERIFY_TOKEN_FAILURE,
+  type: VERIFY_TOKEN_FAILURE
 });
 
 const requestUser = () => ({
-     type: REQUEST_USER,
+  type: REQUEST_USER
 });
 
-const requestUserSuccess = (data) => ({
-     type: REQUEST_USER_SUCCESS,
-     user: data[0],
+const requestUserSuccess = data => ({
+  type: REQUEST_USER_SUCCESS,
+  user: data[0]
 });
 
-// thunk action (magic)
-export const fetchUser = () => {
-     return (dispatch, getState) => {
-          const { verifiedToken } = getState();
-          
-          dispatch(requestUser());
+export const fetchUser = () => (dispatch, getState) => {
+  const { verifiedToken } = getState();
 
-          api.setToken(verifiedToken);
+  dispatch(requestUser());
 
-          api.fetchUser()
-               .then(response => {
-                    dispatch(requestUserSuccess(response));
-               });
-     }
+  api.setToken(verifiedToken);
+
+  api.fetchUser().then(response => {
+    dispatch(requestUserSuccess(response));
+  });
 };
 
 const requestRoomList = () => ({
-     type: REQUEST_ROOM_LIST,
+  type: REQUEST_ROOM_LIST
 });
 
-const requestRoomListSuccess = (data) => ({
-     type: REQUEST_ROOM_LIST_SUCCESS,
-     rooms: data,
+const requestRoomListSuccess = data => ({
+  type: REQUEST_ROOM_LIST_SUCCESS,
+  rooms: data
 });
 
-export const fetchRooms = () => {
-     return (dispatch, getState) => {
-          const { verifiedToken } = getState();
-          
-          dispatch(requestRoomList());
+export const fetchRooms = () => (dispatch, getState) => {
+  const { verifiedToken } = getState();
 
-          api.setToken(verifiedToken);
+  dispatch(requestRoomList());
 
-          api.fetchRooms()
-               .then(response => {
-                    dispatch(requestRoomListSuccess(response));
-               });
-     }
+  api.setToken(verifiedToken);
+
+  api.fetchRooms().then(response => {
+    dispatch(requestRoomListSuccess(response));
+  });
 };
 
-export const selectRoom = (roomId)=> ({
-     type: SELECT_ROOM,
-     roomId,
-})
-
-const requestMessages = (roomId) => ({
-     type: REQUEST_MESSAGES,
-     roomId,
+export const selectRoom = roomId => ({
+  type: SELECT_ROOM,
+  roomId
 });
 
-const requestMessagesSuccess = (messages) => ({
-     type: REQUEST_MESSAGES_SUCCESS,
-     messages,
+const requestMessages = roomId => ({
+  type: REQUEST_MESSAGES,
+  roomId
 });
 
-export const fetchMessages = (roomId) => {
-     return (dispatch, getState) => {
-          const { verifiedToken} = getState();
-          
-          dispatch(requestMessages(roomId));
+const requestMessagesSuccess = messages => ({
+  type: REQUEST_MESSAGES_SUCCESS,
+  messages
+});
 
-          api.setToken(verifiedToken);
+export const fetchMessages = roomId => (dispatch, getState) => {
+  const { verifiedToken } = getState();
 
-          api.fetchMessages(roomId)
-               .then(response => {
-                    dispatch(requestMessagesSuccess(response));
-               });
-     }
+  dispatch(requestMessages(roomId));
+
+  api.setToken(verifiedToken);
+
+  api.fetchMessages(roomId).then(response => {
+    dispatch(requestMessagesSuccess(response));
+  });
 };
