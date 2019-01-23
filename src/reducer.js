@@ -1,111 +1,122 @@
-import { CHANGE_TOKEN, VERIFY_TOKEN_SUCCESS, VERIFY_TOKEN_FAILURE, REQUEST_USER, REQUEST_USER_SUCCESS, 
-    REQUEST_ROOM_LIST, REQUEST_ROOM_LIST_SUCCESS, SELECT_ROOM, REQUEST_MESSAGES, REQUEST_MESSAGES_SUCCESS} from "./actions";
+import {
+  CHANGE_TOKEN,
+  VERIFY_TOKEN_SUCCESS,
+  VERIFY_TOKEN_FAILURE,
+  REQUEST_USER,
+  REQUEST_USER_SUCCESS,
+  REQUEST_ROOM_LIST,
+  REQUEST_ROOM_LIST_SUCCESS,
+  SELECT_ROOM,
+  REQUEST_MESSAGES,
+  REQUEST_MESSAGES_SUCCESS
+} from './actions';
 
 const INITIAL_STATE = {
-    tokenField: '011c376dcb352c7a30ae8ec3b9a212f58339c013', // value for authorization component
-    tokenVerificationError: null,
-    verifiedToken: '',
+  tokenField: '011c376dcb352c7a30ae8ec3b9a212f58339c013', // value for authorization component
+  tokenVerificationError: null,
+  verifiedToken: '',
 
-    user: null,
-    userLoading: false,
+  user: null,
+  userLoading: false,
 
-    rooms: null,
-    roomsLoading: false,
+  rooms: null,
+  roomsLoading: false,
 
-    messages: null,
-    messagesLoading: false,
-    messagesLoadingError: null,
+  messages: null,
+  messagesLoading: false,
+  messagesLoadingError: null,
 
-    selectedRoomID: null,
+  selectedRoomID: null
 };
 
+// eslint-disable-next-line
 export const reducer = (state = INITIAL_STATE, action) => {
-    switch (action.type) {
-        case CHANGE_TOKEN: {
-            const nextState = {
-                ...state,
-                tokenField: action.token,
-            };
+  switch (action.type) {
+    case CHANGE_TOKEN: {
+      const nextState = {
+        ...state,
+        tokenField: action.token
+      };
 
-            return nextState;
-        }
-        case VERIFY_TOKEN_SUCCESS: {
-            const nextState = {
-                ...state,
-                tokenVerificationError: null,
-                verifiedToken: state.tokenField,
-            };
-
-            return nextState;
-        }
-        case VERIFY_TOKEN_FAILURE: {
-            const nextState = {
-                ...state,
-                tokenVerificationError: 'Your token invalid',
-            };
-
-            return nextState;
-        }
-        case REQUEST_USER: {
-            const nextState = {
-                ...state,
-                userLoading: true,
-            }
-
-            return nextState;
-        }
-        case REQUEST_USER_SUCCESS: {
-            const nextState = {
-                ...state,
-                userLoading: false,
-                user: action.user,
-            }
-
-            return nextState;
-        }
-        case REQUEST_ROOM_LIST: {
-            const nextState = {
-                ...state,
-                roomsLoading: true,
-            }
-
-            return nextState;
-        }
-        case REQUEST_ROOM_LIST_SUCCESS: {
-            const nextState = {
-                ...state,
-                roomsLoading: false,
-                rooms: action.rooms,
-            }
-
-            return nextState;
-        }
-        case SELECT_ROOM: {
-            const nextState = {
-                ...state,
-                selectedRoomID: action.roomId,
-            }  
-
-            return nextState;
-        }
-        case REQUEST_MESSAGES: {
-            const nextState = {
-                ...state,
-                messagesLoading: true,
-            }
-
-            return nextState;
-        }
-        case REQUEST_MESSAGES_SUCCESS: {
-            const nextState = {
-                ...state,
-                messagesLoading: false,
-                messages: action.messages,
-            }
-
-            return nextState;
-        }
-        default:
-            return state;
+      return nextState;
     }
+    case VERIFY_TOKEN_SUCCESS: {
+      const nextState = {
+        ...state,
+        tokenVerificationError: null,
+        verifiedToken: state.tokenField
+      };
+
+      return nextState;
+    }
+    case VERIFY_TOKEN_FAILURE: {
+      const nextState = {
+        ...state,
+        tokenVerificationError: 'Your token invalid'
+      };
+
+      return nextState;
+    }
+    case REQUEST_USER: {
+      const nextState = {
+        ...state,
+        userLoading: true
+      };
+
+      return nextState;
+    }
+    case REQUEST_USER_SUCCESS: {
+      const nextState = {
+        ...state,
+        userLoading: false,
+        user: action.user
+      };
+
+      return nextState;
+    }
+    case REQUEST_ROOM_LIST: {
+      const nextState = {
+        ...state,
+        roomsLoading: true
+      };
+
+      return nextState;
+    }
+    case REQUEST_ROOM_LIST_SUCCESS: {
+      const nextState = {
+        ...state,
+        roomsLoading: false,
+        rooms: action.rooms
+      };
+
+      return nextState;
+    }
+    case SELECT_ROOM: {
+      const nextState = {
+        ...state,
+        selectedRoomID: action.roomId
+      };
+
+      return nextState;
+    }
+    case REQUEST_MESSAGES: {
+      const nextState = {
+        ...state,
+        messagesLoading: true
+      };
+
+      return nextState;
+    }
+    case REQUEST_MESSAGES_SUCCESS: {
+      const nextState = {
+        ...state,
+        messagesLoading: false,
+        messages: action.messages
+      };
+
+      return nextState;
+    }
+    default:
+      return state;
+  }
 };

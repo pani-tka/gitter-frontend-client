@@ -3,21 +3,15 @@ import { connect } from 'react-redux';
 import styles from './user-card.module.scss';
 
 export const EmptyUserCard = () => (
-  <div class={styles.emptyContainer}>
-    Empty User Card
-  </div>
+  <div className={styles.emptyContainer}>Empty User Card</div>
 );
 
 const UserCard = ({ user }) => (
-  <div className={styles.container}>
-    {user.displayName}
-  </div>
+  <div className={styles.container}>{user.displayName}</div>
 );
 
-const mapStateToProps = (state) => {
-  return {
-    user: state.user,
-  };
-}
+const mapStateToProps = state => ({
+  user: state.user
+});
 
 export default connect(mapStateToProps)(UserCard);
