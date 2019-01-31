@@ -8,18 +8,21 @@
     background-color: #7a839e;
   }
 }
-.container:hover{
+.container:hover,
+.name:hover {
   background-color: #f6f4f5;
 }
-.name{
+.name {
   display: block;
   width: 170px;
   color: black;
-  font-size: 17px;
-  padding: 10px 0 0 15px;
+  font-size: 15px;
+  padding-left: 15px;
+  border: none;
+  text-align: left;
   text-decoration: none;
 }
-.unreadItem{
+.unreadItem {
   display: block;
   width: 25px;
   height: 25px;
@@ -29,14 +32,14 @@
   color: white;
   text-align: center;
   padding-top: 6px;
-  margin-top: 30px;
+  margin-top: 22px;
   background-color: #94b5c2;
   overflow: hidden;
 }
-.image{
+.image {
   display: block;
-  max-width: 50px;
-  height: 50px;
+  max-width: 45px;
+  height: 45px;
   border-radius: 50%;
   padding: 5px;
 }
